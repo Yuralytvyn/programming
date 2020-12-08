@@ -15,6 +15,13 @@ class Hamster:
         total_per_day = self.package_per_day + self.greed * (n - 1)
         return total_per_day
 
+    def worst_one(self, n):
+        greedNum = n - 1
+        if (n - 2 > 0):
+            greedNum = n - 2
+        total_per_day = self.package_per_day + self.greed * (greedNum)
+        return total_per_day
+
 
 def total_all(hamsters):
     n = len(hamsters)
@@ -33,7 +40,7 @@ def the_worst_hamster_delete(hamsters):
 
     worst = 0
     for i in range(n):
-        if hamsters[worst].total_one(n) < hamsters[i].total_one(n):
+        if hamsters[worst].worst_one(n) < hamsters[i].worst_one(n):
             worst = i
     if n != 0:
         hamsters.pop(worst)
