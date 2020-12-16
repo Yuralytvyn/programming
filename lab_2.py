@@ -11,59 +11,82 @@ class Hamster:
         return 'For {0} hamster number packages per day = {1} , greed = {2}.'.format(
             i + 1, self.package_per_day, self.greed)
 
-    def total_one(self, n):
-        total_per_day = self.package_per_day + self.greed * (n - 1)
+    def total_one(self, n, counter):
+        total_per_day = self.package_per_day + self.greed * (n - counter)
         return total_per_day
 
-    def get_package_per_day(self):
-        return self.package_per_day
 
-
-def total_all(hamsters, nubmerOfHamsters):
+def total_all(hamsters, counter_of_loop,counter):
     n = len(hamsters)
-    total_all_per_day = 0
+    arr = []
+    summ=0
+
     for i in range(n):
-        total_per_day = hamsters[i].total_one(nubmerOfHamsters)
-        total_all_per_day += total_per_day
-    return total_all_per_day
-
-def max_hamsters_amount(hamsters, nubmerOfHamsters):
-    if nubmerOfHamsters == 0:
-        best_without_greed = hamsters[0].get_package_per_day()
-        for i in range(len(hamsters)):
-            if best_without_greed < hamsters[i].get_package_per_day():
-                best_without_greed = hamsters[i].get_package_per_day()
-
-        if(best_without_greed <=s):
-            return 1
+        total_per_day = hamsters[i].total_one(n, counter)
+        arr.append(total_per_day)
+    arr.sort()
+    for i in range(counter_of_loop):
+        if counter_of_loop == 0:
+            return arr
         else:
-            return 0
+            arr.pop()
+    for i in range(len(arr)):
+        summ+=arr[i]
+        arr[i]=summ
 
-    temp=hamsters.copy()
-    while len(temp) - nubmerOfHamsters > 0:
-        worst = 0
-        for i in range(len(temp)):
-            if temp[worst].total_one(nubmerOfHamsters) < temp[i].total_one(nubmerOfHamsters):
-                worst = i
-        if len(temp) != 0:
-            temp.pop(worst)
+    return arr
 
-    total_all_per_day = total_all(temp, len(temp))
-    if s >= total_all_per_day:
-        return (len(temp))
 
-    nubmerOfHamsters -= 1
-    return max_hamsters_amount(hamsters, nubmerOfHamsters)
+
+def binarySearch(arr, searched_value):
+    low, high = 0, len(arr) - 1
+    best_ind = low
+    if searched_value > arr[len(arr) - 1]:
+        best_ind = len(arr) - 1
+    else:
+        while low <= high:
+            mid = low + (high - low) // 2
+            if arr[mid] < searched_value:
+                low = mid + 1
+                if arr[mid + 1] > searched_value:
+                    best_ind = mid
+                    break
+            elif arr[mid] > searched_value:
+                high = mid - 1
+            else:
+                best_ind = mid
+                break
+            if mid < arr[best_ind] < mid + 1:
+                return best_ind - 1
+    return best_ind + 1
+
+
+def making_arr(c,counter_of_loop,counter):
+    arr = []
+
+    while counter_of_loop<c:
+        tlt = total_all(hamsters, counter_of_loop,counter)
+        arr.append(binarySearch(tlt, s))
+        counter_of_loop+=1
+        counter += 1
+        if counter_of_loop==c:
+            break
+
+    return arr
 
 
 s = int(input('Enter total food per day : '))
 c = int(input('Enter number of hamsters : '))
+
 hamsters = []
+counter = 1
+counter_of_loop = 0
+
 for i in range(c):
     h, g = list(map(int, input('Enter number packages per day, greed for {0} hamster: '.format(i + 1)).split()))
     hamsters.append(Hamster(h, g))
 
-print(max_hamsters_amount(hamsters, len(hamsters)))
-
-
-
+arr=making_arr(c,counter_of_loop,counter)
+arr.sort()
+last_number=arr[len(arr)-1]
+print(last_number)
