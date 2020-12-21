@@ -17,7 +17,7 @@ class Hamster:
 
 
 def total_all(hamsters, counter_of_loop,counter):
-    n = len(hamsters)
+
     arr = []
     summ=0
 
