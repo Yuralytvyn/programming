@@ -21,8 +21,8 @@ def total_all(hamsters, counter_of_loop,counter):
     arr = []
     summ=0
 
-    for i in range(n):
-        total_per_day = hamsters[i].total_one(n, counter)
+    for i in range(len(hamsters)):
+        total_per_day = hamsters[i].total_one(len(hamsters), counter)
         arr.append(total_per_day)
     arr.sort()
     for i in range(counter_of_loop):
@@ -38,7 +38,7 @@ def total_all(hamsters, counter_of_loop,counter):
 
 
 
-def binarySearch(arr, searched_value):
+def binary_search(arr, searched_value):
     low, high = 0, len(arr) - 1
     best_ind = low
     if searched_value > arr[len(arr) - 1]:
@@ -65,8 +65,8 @@ def making_arr(c,counter_of_loop,counter):
     arr = []
 
     while counter_of_loop<c:
-        tlt = total_all(hamsters, counter_of_loop,counter)
-        arr.append(binarySearch(tlt, s))
+        totalall = total_all(hamsters, counter_of_loop,counter)
+        arr.append(binary_search(totalall, s))
         counter_of_loop+=1
         counter += 1
         if counter_of_loop==c:
