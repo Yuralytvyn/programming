@@ -53,12 +53,12 @@ def main() :
     g = Graph(amount)
 
     for i in range(connections):
-        end = list(map(int, input("\nEnter the graph who are clients : ").strip().split()))*3
-        for i in range(len(end)):
-            a=end[0]
-            b=end[1]
-            c=end[2]
-            g.Add_Into_Adjlist(a,Node_Distance(b,c))
+        graph = list(map(int, input("\nEnter the graph who are clients : ").strip().split()))*3
+        for i in range(len(graph)):
+            start=graph[0]
+            end=graph[1]
+            distance=graph[2]
+            g.Add_Into_Adjlist(start,Node_Distance(end,distance))
 
     for i in range(len(choose_who_are_clients)):
         g.Dijkstras_Shortest_Path(choose_who_are_clients[i])
@@ -69,3 +69,4 @@ def main() :
 
 if __name__ == "__main__" :
    main()
+
