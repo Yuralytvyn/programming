@@ -5,10 +5,11 @@ def kmp_search(pattern, text):
 
     array_of_0 = [0] * length_of_pattern
     j = 0
-
+    i = 0
     compute_array(pattern, length_of_pattern, array_of_0)
 
-    i = 0
+    if length_of_pattern == 0:
+        return str(0)
     while i < length_of_text:
         if pattern[j] == text[i]:
             i += 1
@@ -21,7 +22,7 @@ def kmp_search(pattern, text):
                 i += 1
         if j == length_of_pattern:
 
-            j = array_of_0[j - 1]
+
             j=length_of_pattern
             return str(i - j)
 
@@ -31,6 +32,7 @@ def compute_array(pattern, length_of_pattern, array_of_0):
     i = 1
 
     while i < length_of_pattern:
+
         if pattern[i] == pattern[length]:
             length += 1
             array_of_0[i] = length
@@ -41,10 +43,11 @@ def compute_array(pattern, length_of_pattern, array_of_0):
             else:
                 array_of_0[i] = 0
                 i += 1
+
     return array_of_0
 
 
 text = "cdfgocdac"
 pattern = "cdac"
 
-print("Pattern is at " + kmp_search(pattern, text) + " word")
+print("Pattern begins at " + kmp_search(pattern, text) + " letter")
